@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2036
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roxolan.Storage", "Roxolan.Storage\Roxolan.Storage.csproj", "{A55C76D9-AAFB-4485-B7EC-B6EFDD7C9811}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roxolan.Storage.Tests", "Roxolan.Storage.Tests\Roxolan.Storage.Tests.csproj", "{F5D16C1E-D970-4522-9366-400A61838CE2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A55C76D9-AAFB-4485-B7EC-B6EFDD7C9811}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A55C76D9-AAFB-4485-B7EC-B6EFDD7C9811}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A55C76D9-AAFB-4485-B7EC-B6EFDD7C9811}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A55C76D9-AAFB-4485-B7EC-B6EFDD7C9811}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5D16C1E-D970-4522-9366-400A61838CE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5D16C1E-D970-4522-9366-400A61838CE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5D16C1E-D970-4522-9366-400A61838CE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5D16C1E-D970-4522-9366-400A61838CE2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {EFECE8EA-3029-4190-A785-12D29ED7CC55}
+	EndGlobalSection
+EndGlobal
