@@ -9,7 +9,7 @@ namespace Roxolan.Storage
 {
     public abstract class StorageItem : IStorageItem
     {
-        public IStorageContainer Parent { get; protected set; } = null;
+        public abstract IStorageContainer Parent { get; }
 
         public IDictionary<string, object> Properties { get; protected set; } = null;
 

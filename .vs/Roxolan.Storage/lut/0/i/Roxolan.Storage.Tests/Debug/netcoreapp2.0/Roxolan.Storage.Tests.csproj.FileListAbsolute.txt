@@ -1,0 +1,13 @@
+C:\Users\oleg\source\repos\roxolan.storage\.vs\Roxolan.Storage\lut\0\b\Roxolan.Storage.Tests\Debug\netcoreapp2.0\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\Users\oleg\source\repos\roxolan.storage\.vs\Roxolan.Storage\lut\0\b\Roxolan.Storage.Tests\Debug\netcoreapp2.0\xunit.runner.reporters.netcoreapp10.dll
+C:\Users\oleg\source\repos\roxolan.storage\.vs\Roxolan.Storage\lut\0\b\Roxolan.Storage.Tests\Debug\netcoreapp2.0\xunit.runner.utility.netcoreapp10.dll
+C:\Users\oleg\source\repos\roxolan.storage\.vs\Roxolan.Storage\lut\0\b\Roxolan.Storage.Tests\Debug\netcoreapp2.0\Roxolan.Storage.Tests.deps.json
+C:\Users\oleg\source\repos\roxolan.storage\.vs\Roxolan.Storage\lut\0\b\Roxolan.Storage.Tests\Debug\netcoreapp2.0\Roxolan.Storage.Tests.runtimeconfig.json
+C:\Users\oleg\source\repos\roxolan.storage\.vs\Roxolan.Storage\lut\0\b\Roxolan.Storage.Tests\Debug\netcoreapp2.0\Roxolan.Storage.Tests.runtimeconfig.dev.json
+C:\Users\oleg\source\repos\roxolan.storage\.vs\Roxolan.Storage\lut\0\b\Roxolan.Storage.Tests\Debug\netcoreapp2.0\Roxolan.Storage.Tests.dll
+C:\Users\oleg\source\repos\roxolan.storage\.vs\Roxolan.Storage\lut\0\b\Roxolan.Storage.Tests\Debug\netcoreapp2.0\Roxolan.Storage.Tests.pdb
+C:\Users\oleg\source\repos\roxolan.storage\.vs\Roxolan.Storage\lut\0\i\Roxolan.Storage.Tests\Debug\netcoreapp2.0\Roxolan.Storage.Tests.csproj.CoreCompileInputs.cache
+C:\Users\oleg\source\repos\roxolan.storage\.vs\Roxolan.Storage\lut\0\i\Roxolan.Storage.Tests\Debug\netcoreapp2.0\Roxolan.Storage.Tests.AssemblyInfoInputs.cache
+C:\Users\oleg\source\repos\roxolan.storage\.vs\Roxolan.Storage\lut\0\i\Roxolan.Storage.Tests\Debug\netcoreapp2.0\Roxolan.Storage.Tests.AssemblyInfo.cs
+C:\Users\oleg\source\repos\roxolan.storage\.vs\Roxolan.Storage\lut\0\i\Roxolan.Storage.Tests\Debug\netcoreapp2.0\Roxolan.Storage.Tests.dll
+C:\Users\oleg\source\repos\roxolan.storage\.vs\Roxolan.Storage\lut\0\i\Roxolan.Storage.Tests\Debug\netcoreapp2.0\Roxolan.Storage.Tests.pdb

@@ -11,7 +11,7 @@ namespace Roxolan.Storage
 {
     public abstract class StorageContainer:IStorageContainer
     {
-        public IStorageContainer Parent { get; protected set; } = null;
+        public abstract IStorageContainer Parent { get; }
 
         public IDictionary<string, object> Properties  { get; protected set; }
         public string CloudLocationPattern { get; set; } = StorageConfig.CloudLocationPattern;

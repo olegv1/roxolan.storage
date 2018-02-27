@@ -11,10 +11,9 @@ namespace Roxolan.Storage
 
     public class CloudBlobItem : StorageItem
     {
-        private Uri uri;
-        private IStorageConfig storageConfig;
-
         CloudBlockBlob _blob = null;
+        private IStorageContainer _parent = null;
+
         public CloudBlobItem(Uri uri) : this(uri, new StorageConfig())
         {
         }
@@ -43,6 +42,14 @@ namespace Roxolan.Storage
             _blob = new CloudBlockBlob(URI, StorageAccount.Credentials);
             NativeObject = _blob;
         }
+        public override IStorageContainer Parent
+        {
+            get
+            {
+                if (_parent == null && _blob?.Parent != null && _blob.Uri.AbsoluteUri != _blob.Parent?.Uri.AbsoluteUri) { _parent = new CloudBlobItemContainer(_blob.Parent, Configuration); };
+                return _parent;
+            }
+        }
 
         public override async Task CopyToLocationAsync(string destination, bool overwrite = false)
         {
@@ -50,7 +57,8 @@ namespace Roxolan.Storage
 
             using (Stream source = OpenRead())
             {
-                using (Stream dest = item.OpenWrite(overwrite))
+                await _blob.FetchAttributesAsync();
+                using (Stream dest = item.OpenWrite(overwrite, _blob.Properties.Length))
                 {
                     await source.CopyToAsync(dest);
                     await dest.FlushAsync();
@@ -95,6 +103,11 @@ namespace Roxolan.Storage
 
         public override async Task<Stream> OpenWriteAsync(bool overwrite = false, long? destMaxSize = null)
         {
+            if (!overwrite)
+            {
+                bool exists = await _blob.ExistsAsync();
+                if (exists) { throw new Exception($"overwrite flag is set to 'false' and resource {_blob.Uri} already exists."); }
+            }
             return await _blob.OpenWriteAsync();
         }
 

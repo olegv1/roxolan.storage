@@ -21,8 +21,8 @@ namespace Roxolan.Storage
         {
             var cfg = new ConfigurationBuilder()
                             .SetBasePath(System.IO.Directory.GetCurrentDirectory())
-                            .AddJsonFile(DefaultAppSettingsName + ".json")
-                            .AddXmlFile(DefaultAppSettingsName + ".xml")
+                            .AddJsonFile(DefaultAppSettingsName + ".json", optional: true)
+                            .AddXmlFile(DefaultAppSettingsName + ".xml", optional: true)
                             //.AddAzureKeyVault()
                             .AddEnvironmentVariables()
                             .Build();
@@ -197,7 +197,7 @@ namespace Roxolan.Storage
             }
             throw new Exception($"Unable to find a configured storage account for reference {value}");
         }
-        public static string CloudStoragePattern { get; set; } = "Account=";
+        public static string CloudStoragePattern { get; set; } = "Account=|AccountName=";
         public static string DefaultAppSettingsName { get; protected set; } = "appsettings";
         public static string DefaultAccountSelector { get; protected set; } = ".";
         public static string CloudLocationPattern { get; set; } = @"\.file\.core\.windows.net|\.blob\.core\.windows.net";

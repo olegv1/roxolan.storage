@@ -8,12 +8,13 @@ namespace Roxolan.Storage
 {
     public class FileItemDirectory : StorageContainer
     {
+        private System.IO.DirectoryInfo _dir = null;
+        private IStorageContainer _parent = null;
 
-        public FileItemDirectory(string localPath)
+        public FileItemDirectory(string localPath):this(new Uri(System.IO.Path.GetFullPath(localPath)))
         {
-            URI = new Uri(localPath);
         }
-        private System.IO.DirectoryInfo _dir;
+
         public FileItemDirectory(Uri uri) : this(uri, new StorageConfig())
         {
         }
@@ -33,12 +34,20 @@ namespace Roxolan.Storage
         public FileItemDirectory(Uri uri, IStorageConfig configuration)
         {
             Configuration = configuration;
-            StorageAccount = configuration.GetStorageAccountByUri(uri);
             URI = uri;
             if (IsCloudLocation) { throw new ArgumentException($"Directory cannot be instantiated for an invalid uri {uri}"); }
             _dir = new System.IO.DirectoryInfo(URI.LocalPath);
             NativeObject = _dir;
         }
+        public override IStorageContainer Parent
+        {
+            get
+            {
+                if (_parent == null && _dir?.Parent != null && _dir.FullName != _dir.Parent?.FullName) { _parent = new FileItemDirectory(_dir.Parent, Configuration); };
+                return _parent;
+            }
+        }
+
         public async override Task CreateIfNotExistsAsync()
         {
             System.IO.Directory.CreateDirectory(URI.LocalPath);

@@ -11,7 +11,9 @@ namespace Roxolan.Storage
 {
     public class CloudFileItemDirectory:StorageContainer
     {
-        private CloudFileDirectory _dir;
+        private CloudFileDirectory _dir = null;
+        private IStorageContainer _parent = null;
+
         public CloudFileItemDirectory(Uri uri) : this(uri, new StorageConfig())
         {
         }
@@ -40,6 +42,15 @@ namespace Roxolan.Storage
             _dir = new CloudFileDirectory(URI, StorageAccount.Credentials);
             NativeObject = _dir;
         }
+        public override IStorageContainer Parent
+        {
+            get
+            {
+                if (_parent == null && _dir?.Parent != null && _dir.Uri.AbsoluteUri != _dir.Parent?.Uri.AbsoluteUri) { _parent = new CloudFileItemDirectory(_dir.Parent, Configuration); };
+                return _parent;
+            }
+        }
+
         public async override Task CreateIfNotExistsAsync()
         {
             CloudStorageAccount sa = Configuration.GetStorageAccountByUri(URI);

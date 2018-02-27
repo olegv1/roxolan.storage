@@ -4,3 +4,12 @@ C:\Users\oleg\Documents\ROXOLAN\Roxolan.Storage\Roxolan.Storage\obj\Debug\netcor
 C:\Users\oleg\Documents\ROXOLAN\Roxolan.Storage\Roxolan.Storage\obj\Debug\netcoreapp2.0\Roxolan.Storage.csproj.CoreCompileInputs.cache
 C:\Users\oleg\Documents\ROXOLAN\Roxolan.Storage\Roxolan.Storage\obj\Debug\netcoreapp2.0\Roxolan.Storage.AssemblyInfoInputs.cache
 C:\Users\oleg\Documents\ROXOLAN\Roxolan.Storage\Roxolan.Storage\obj\Debug\netcoreapp2.0\Roxolan.Storage.AssemblyInfo.cs
+C:\Users\oleg\source\repos\roxolan.storage\Roxolan.Storage\bin\Debug\netcoreapp2.0\Roxolan.Storage.deps.json
+C:\Users\oleg\source\repos\roxolan.storage\Roxolan.Storage\bin\Debug\netcoreapp2.0\Roxolan.Storage.dll
+C:\Users\oleg\source\repos\roxolan.storage\Roxolan.Storage\bin\Debug\netcoreapp2.0\Roxolan.Storage.pdb
+C:\Users\oleg\source\repos\roxolan.storage\Roxolan.Storage\obj\Debug\netcoreapp2.0\Roxolan.Storage.csprojResolveAssemblyReference.cache
+C:\Users\oleg\source\repos\roxolan.storage\Roxolan.Storage\obj\Debug\netcoreapp2.0\Roxolan.Storage.csproj.CoreCompileInputs.cache
+C:\Users\oleg\source\repos\roxolan.storage\Roxolan.Storage\obj\Debug\netcoreapp2.0\Roxolan.Storage.AssemblyInfoInputs.cache
+C:\Users\oleg\source\repos\roxolan.storage\Roxolan.Storage\obj\Debug\netcoreapp2.0\Roxolan.Storage.AssemblyInfo.cs
+C:\Users\oleg\source\repos\roxolan.storage\Roxolan.Storage\obj\Debug\netcoreapp2.0\Roxolan.Storage.dll
+C:\Users\oleg\source\repos\roxolan.storage\Roxolan.Storage\obj\Debug\netcoreapp2.0\Roxolan.Storage.pdb

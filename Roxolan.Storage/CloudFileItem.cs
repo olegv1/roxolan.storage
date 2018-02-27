@@ -12,6 +12,7 @@ namespace Roxolan.Storage
 {
     public class CloudFileItem : StorageItem
     {
+        private IStorageContainer _parent = null;
         CloudFile _file = null;
         public CloudFileItem(Uri uri):this(uri,new StorageConfig())
         {
@@ -41,6 +42,14 @@ namespace Roxolan.Storage
             _file = new CloudFile(URI,StorageAccount.Credentials);
             NativeObject = _file;
         }
+        public override IStorageContainer Parent
+        {
+            get
+            {
+                if (_parent == null && _file?.Parent != null && _file.Uri.AbsoluteUri != _file.Parent?.Uri.AbsoluteUri) { _parent = new CloudFileItemDirectory(_file.Parent, Configuration); };
+                return _parent;
+            }
+        }
 
         public override async Task CopyToLocationAsync(string destination, bool overwrite = false)
         {
@@ -48,7 +57,8 @@ namespace Roxolan.Storage
 
             using (Stream source = OpenRead())
             {
-                using (Stream dest = item.OpenWrite(overwrite))
+                await _file.FetchAttributesAsync();
+                using (Stream dest = item.OpenWrite(overwrite, _file.Properties.Length))
                 {
                     await source.CopyToAsync(dest);
                     await dest.FlushAsync();
@@ -93,6 +103,11 @@ namespace Roxolan.Storage
 
         public override async Task<Stream> OpenWriteAsync(bool overwrite = false, long? destMaxSize = null)
         {
+            if (!overwrite)
+            {
+                bool exists = await _file.ExistsAsync();
+                if (exists) { throw new Exception($"overwrite flag is set to 'false' and resource {_file.Uri} already exists."); }
+            }
             return await _file.OpenWriteAsync(destMaxSize);
         }
 

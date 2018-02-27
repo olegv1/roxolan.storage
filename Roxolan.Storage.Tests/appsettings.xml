@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <x>
+    <y>
+      <a name ="x">DefaultEndpointsProtocol=https;AccountName=4wkg2mcjiyss43;AccountKey=ujwH+qqRQmXnrJBhbqRbxEr/UXzKdGJM83ZuC86wAUvCRwNY75o67k1UlIvYQ3wRrHmhdxuZF7leP0hyx2/C0A==;BlobEndpoint=https://4wkg2mcjiyss43.blob.core.windows.net/;QueueEndpoint=https://4wkg2mcjiyss43.queue.core.windows.net/;TableEndpoint=https://4wkg2mcjiyss43.table.core.windows.net/;FileEndpoint=https://4wkg2mcjiyss43.file.core.windows.net/;</a>
+    </y>
+  </x>
+</configuration>

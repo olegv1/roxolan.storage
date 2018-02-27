@@ -28,7 +28,7 @@ namespace Roxolan.Storage
         {
             IStorageItem result = null;
             IStorageConfig scfg = storageConfig ?? new StorageConfig();
-            result = new CloudBlobItem(uri, storageConfig);
+            result = new CloudBlobItem(uri, scfg);
             return result;
         }
 
@@ -36,21 +36,32 @@ namespace Roxolan.Storage
         {
             IStorageItem result = null;
             IStorageConfig scfg = storageConfig ?? new StorageConfig();
-            result = new CloudFileItem(uri, storageConfig);
+            result = new CloudFileItem(uri, scfg);
             return result;
         }
 
         private static IStorageItem CreateFileItem(Uri uri, IStorageConfig storageConfig = null)
         {
             IStorageItem result = null;
-            IStorageConfig scfg = storageConfig ?? new StorageConfig();
+            //IStorageConfig scfg = storageConfig ?? new StorageConfig();
             result = new FileItem(uri.LocalPath);
             return result;
         }
 
         public static IStorageItem CreateItem(this string location, IStorageConfig storageConfig = null)
         {
-            return CreateItem (new Uri(location));
+            try
+            {
+                return CreateItem (new Uri(location));
+            }
+            catch (Exception ex)
+            {
+                if (!System.IO.Path.IsPathRooted(location))
+                {
+                    return CreateItem(new Uri(System.IO.Path.GetFullPath(location)));
+                }
+                throw ex;
+            }
         }
         private static IStorageContainer CreateCloudFileContainer(this Uri uri, IStorageConfig storageConfig = null)
         {
@@ -71,7 +82,7 @@ namespace Roxolan.Storage
                 dir.CreateIfNotExistsAsync().GetAwaiter().GetResult();
                 n = n + 1;
             }
-            result = new CloudFileItemDirectory(dir, storageConfig);
+            result = new CloudFileItemDirectory(dir, scfg);
             return result;
         }
         public static IStorageContainer CreateContainer(this Uri uri, IStorageConfig storageConfig = null)
@@ -103,7 +114,7 @@ namespace Roxolan.Storage
             CloudBlobContainer blobContainer = blob.Container;
             blobContainer.CreateIfNotExistsAsync().GetAwaiter().GetResult();
 
-            result = new CloudBlobItemContainer(blobContainer, storageConfig);
+            result = new CloudBlobItemContainer(blobContainer, scfg);
             return result;
         }
 
@@ -120,6 +131,17 @@ namespace Roxolan.Storage
         public static string ToCloudFileNetSharePath(this Uri uri)
         {
             return Uri.UnescapeDataString(uri.ToString().Replace("https://", @"\\").Replace("/", @"\"));
+        }
+        public static Uri GetParent(this Uri uri)
+        {
+            try
+            {
+                return new Uri(uri.AbsoluteUri.Remove(uri.AbsoluteUri.Length - uri.Segments.Last().Length));
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 

@@ -7,11 +7,21 @@ namespace Roxolan.Storage
 {
     internal class FileItem : StorageItem
     {
-        public FileItem(string localPath)
+        IStorageContainer _parent = null;
+        public FileItem(string localPath):this(new Uri(System.IO.Path.GetFullPath(localPath)))
         {
-            URI =  new Uri(localPath);
         }
         FileInfo _file = null;
+
+        public override IStorageContainer Parent
+        {
+            get
+            {
+                if (_parent == null && _file?.Directory != null) { _parent = new FileItemDirectory(_file.Directory, Configuration); }
+                return _parent;
+            }
+        }
+
         public FileItem(Uri uri) : this(uri, new StorageConfig())
         {
         }
@@ -31,7 +41,6 @@ namespace Roxolan.Storage
         public FileItem(Uri uri, IStorageConfig configuration)
         {
             Configuration = configuration;
-            StorageAccount = configuration.GetStorageAccountByUri(uri);
             URI = uri;
             if (IsCloudLocation) { throw new ArgumentException($"File cannot be instantiated for an invalid uri {uri}"); }
             _file = new FileInfo(URI.LocalPath);
@@ -44,7 +53,7 @@ namespace Roxolan.Storage
 
             using (Stream source = OpenRead())
             {
-                using (Stream dest = item.OpenWrite(overwrite))
+                using (Stream dest = item.OpenWrite(overwrite, _file.Length))
                 {
                     await source.CopyToAsync(dest);
                     await dest.FlushAsync();
@@ -89,6 +98,10 @@ namespace Roxolan.Storage
 
         public override async Task<Stream> OpenWriteAsync(bool overwrite = false, long? destMaxSize = null)
         {
+            if (!overwrite && _file.Exists)
+            {
+                throw new Exception($"overwrite flag is set to 'false' and resource {_file.FullName} already exists.");
+            }
             return _file.OpenWrite();
         }
 

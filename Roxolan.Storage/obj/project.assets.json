@@ -5851,11 +5851,11 @@
       "hideWarningsAndErrors": true
     },
     "restore": {
-      "projectUniqueName": "C:\\Users\\oleg\\Documents\\ROXOLAN\\Roxolan.Storage\\Roxolan.Storage\\Roxolan.Storage.csproj",
+      "projectUniqueName": "C:\\Users\\oleg\\source\\repos\\roxolan.storage\\Roxolan.Storage\\Roxolan.Storage.csproj",
       "projectName": "Roxolan.Storage",
-      "projectPath": "C:\\Users\\oleg\\Documents\\ROXOLAN\\Roxolan.Storage\\Roxolan.Storage\\Roxolan.Storage.csproj",
+      "projectPath": "C:\\Users\\oleg\\source\\repos\\roxolan.storage\\Roxolan.Storage\\Roxolan.Storage.csproj",
       "packagesPath": "C:\\Users\\oleg\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\oleg\\Documents\\ROXOLAN\\Roxolan.Storage\\Roxolan.Storage\\obj\\",
+      "outputPath": "C:\\Users\\oleg\\source\\repos\\roxolan.storage\\Roxolan.Storage\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackagesFallback\\",
