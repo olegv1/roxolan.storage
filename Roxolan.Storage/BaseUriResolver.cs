@@ -16,7 +16,7 @@ namespace Roxolan.Storage
         {
 
         }
-        public IStorageItem CreateItem(Uri uri, IStorageConfig storageConfig = null)
+        public virtual IStorageItem CreateItem(Uri uri, IStorageConfig storageConfig = null)
         {
             if (Regex.IsMatch(uri?.DnsSafeHost ?? "", StorageConfig.CloudFilePattern, RegexOptions.Compiled | RegexOptions.IgnoreCase))
             {
@@ -53,7 +53,7 @@ namespace Roxolan.Storage
             return result;
         }
 
-        public IStorageItem CreateItem(string location, IStorageConfig storageConfig = null)
+        public virtual IStorageItem CreateItem(string location, IStorageConfig storageConfig = null)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace Roxolan.Storage
             result = new CloudFileItemDirectory(dir, scfg);
             return result;
         }
-        public IStorageContainer CreateContainer(Uri uri, IStorageConfig storageConfig = null)
+        public virtual IStorageContainer CreateContainer(Uri uri, IStorageConfig storageConfig = null)
         {
             if (Regex.IsMatch(uri?.DnsSafeHost ?? "", StorageConfig.CloudFilePattern, RegexOptions.Compiled | RegexOptions.IgnoreCase))
             {
@@ -123,17 +123,17 @@ namespace Roxolan.Storage
             return result;
         }
 
-        public IStorageContainer CreateContainer(string location, IStorageConfig storageConfig = null)
+        public virtual IStorageContainer CreateContainer(string location, IStorageConfig storageConfig = null)
         {
             return CreateContainer(new Uri(location), storageConfig);
         }
 
-        public IStorageContainer CreateContainer(string location, IConfiguration config) => CreateContainer(location, new StorageConfig(config));
+        public virtual IStorageContainer CreateContainer(string location, IConfiguration config) => CreateContainer(location, new StorageConfig(config));
 
-        public IStorageContainer CreateContainer(Uri uri, IConfiguration config) => CreateContainer(uri, new StorageConfig(config));
+        public virtual IStorageContainer CreateContainer(Uri uri, IConfiguration config) => CreateContainer(uri, new StorageConfig(config));
 
-        public IStorageItem CreateItem(string location, IConfiguration config) => CreateItem(location, new StorageConfig(config));
+        public virtual IStorageItem CreateItem(string location, IConfiguration config) => CreateItem(location, new StorageConfig(config));
 
-        public IStorageItem CreateItem(Uri uri, IConfiguration config) => CreateItem(uri, new StorageConfig(config));
+        public virtual IStorageItem CreateItem(Uri uri, IConfiguration config) => CreateItem(uri, new StorageConfig(config));
     }
 }

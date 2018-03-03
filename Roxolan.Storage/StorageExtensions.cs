@@ -198,6 +198,17 @@ namespace Roxolan.Storage
                 return null;
             }
         }
+        public static Uri AsUri(this string location)
+        {
+            try
+            {
+                return (new Uri(location));
+            }
+            catch (Exception ex)
+            {
+                return (new Uri("file://" + System.IO.Path.GetFullPath(location)));
+            }
+        }
     }
 
 }
