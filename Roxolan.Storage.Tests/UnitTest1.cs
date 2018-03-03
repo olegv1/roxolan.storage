@@ -52,7 +52,7 @@ namespace Roxolan.Storage.Tests
             IStorageItem f = uri.CreateItem();
             var destItem = dest.CreateItem(new StorageConfig(cfg));
             destItem.Parent.CreateIfNotExists();
-            f.CopyToLocation(dest.AbsoluteUri);
+            f.CopyToLocation(dest.AbsoluteUri, true);
 
             byte[] srcbytes = null;
             using (MemoryStream ms = new MemoryStream())

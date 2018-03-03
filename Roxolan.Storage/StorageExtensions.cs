@@ -1,4 +1,5 @@
-﻿using Microsoft.WindowsAzure.Storage;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Microsoft.WindowsAzure.Storage.File;
 using System;
@@ -11,7 +12,7 @@ namespace Roxolan.Storage
 {
     public static class StorageExtensions
     {
-        public static IStorageItem CreateItem(this Uri uri, IStorageConfig storageConfig = null)
+        public static IStorageItem CreateItem(this Uri uri, IStorageConfig storageConfig)
         {
             if (Regex.IsMatch(uri?.DnsSafeHost ?? "", StorageConfig.CloudFilePattern, RegexOptions.Compiled | RegexOptions.IgnoreCase))
             {
@@ -22,6 +23,18 @@ namespace Roxolan.Storage
                 return CreateCloudBlobItem(uri, storageConfig);
             }
             return CreateFileItem(uri);
+        }
+
+        public static IStorageItem CreateItem(this Uri uri, IUriResolver resolver = null, IStorageConfig storageConfig = null)
+        {
+            var r = resolver ?? new BaseUriResolver();
+            return r.CreateItem(uri, storageConfig);
+        }
+
+        public static IStorageItem CreateItem(this Uri uri, IConfiguration config, IUriResolver resolver = null)
+        {
+            var r = resolver ?? new BaseUriResolver();
+            return r.CreateItem(uri, config);
         }
 
         private static IStorageItem CreateCloudBlobItem(Uri uri, IStorageConfig storageConfig = null)
@@ -48,19 +61,32 @@ namespace Roxolan.Storage
             return result;
         }
 
-        public static IStorageItem CreateItem(this string location, IStorageConfig storageConfig = null)
+        public static IStorageItem CreateItem(this string location, IStorageConfig storageConfig)
         {
+            return CreateItem(location, new BaseUriResolver(), storageConfig);
+        }
+        public static IStorageItem CreateItem(this string location, IUriResolver resolver = null, IStorageConfig storageConfig = null)
+        {
+            var r = resolver ?? new BaseUriResolver();
             try
             {
-                return CreateItem (new Uri(location));
+                return r.CreateItem (new Uri(location), storageConfig);
             }
             catch (Exception ex)
             {
-                if (!System.IO.Path.IsPathRooted(location))
-                {
-                    return CreateItem(new Uri(System.IO.Path.GetFullPath(location)));
-                }
-                throw ex;
+                return r.CreateItem(new Uri("file://" + System.IO.Path.GetFullPath(location)), storageConfig);
+            }
+        }
+        public static IStorageItem CreateItem(this string location, IConfiguration config, IUriResolver resolver = null)
+        {
+            var r = resolver ?? new BaseUriResolver();
+            try
+            {
+                return r.CreateItem (new Uri(location), config);
+            }
+            catch (Exception ex)
+            {
+                return r.CreateItem(new Uri("file://" + System.IO.Path.GetFullPath(location)), config);
             }
         }
         private static IStorageContainer CreateCloudFileContainer(this Uri uri, IStorageConfig storageConfig = null)
@@ -85,17 +111,15 @@ namespace Roxolan.Storage
             result = new CloudFileItemDirectory(dir, scfg);
             return result;
         }
-        public static IStorageContainer CreateContainer(this Uri uri, IStorageConfig storageConfig = null)
+        public static IStorageContainer CreateContainer(this Uri uri, IUriResolver resolver = null, IStorageConfig storageConfig = null)
         {
-            if (Regex.IsMatch(uri?.DnsSafeHost ?? "", StorageConfig.CloudFilePattern, RegexOptions.Compiled | RegexOptions.IgnoreCase))
-            {
-                return CreateCloudFileContainer(uri, storageConfig);
-            }
-            if (Regex.IsMatch(uri?.DnsSafeHost ?? "", StorageConfig.CloudBlobPattern, RegexOptions.Compiled | RegexOptions.IgnoreCase))
-            {
-                return CreateCloudBlobContainer(uri, storageConfig);
-            }
-            return CreateFileItemDirectory(uri);
+            var r = resolver ?? new BaseUriResolver();
+            return resolver.CreateContainer(uri, storageConfig);
+        }
+        public static IStorageContainer CreateContainer(this Uri uri, IConfiguration config, IUriResolver resolver = null)
+        {
+            var r = resolver ?? new BaseUriResolver();
+            return resolver.CreateContainer(uri, config);
         }
 
         private static IStorageContainer CreateFileItemDirectory(Uri uri)
@@ -118,9 +142,40 @@ namespace Roxolan.Storage
             return result;
         }
 
-        public static IStorageContainer CreateContainer(this string location, IStorageConfig storageConfig = null)
+        public static IStorageContainer CreateContainer(this string location, IStorageConfig storageConfig)
         {
-            return CreateContainer(new Uri(location), storageConfig);
+            try
+            {
+                return CreateContainer(new Uri(location), new BaseUriResolver(), storageConfig);
+            }
+            catch (Exception ex)
+            {
+                    return CreateContainer(new Uri("file://" + System.IO.Path.GetFullPath(location)), new BaseUriResolver(), storageConfig);
+            }
+        }
+        public static IStorageContainer CreateContainer(this string location, IUriResolver resolver = null, IStorageConfig storageConfig = null)
+        {
+            var r = resolver ?? new BaseUriResolver();
+            try
+            {
+                return resolver.CreateContainer(new Uri(location), storageConfig);
+            }
+            catch (Exception ex)
+            {
+                return resolver.CreateContainer(new Uri("file://" + System.IO.Path.GetFullPath(location)), storageConfig);
+            }
+        }
+        public static IStorageContainer CreateContainer(this string location, IConfiguration config, IUriResolver resolver = null)
+        {
+            var r = resolver ?? new BaseUriResolver();
+            try
+            {
+                return resolver.CreateContainer(new Uri(location), config);
+            }
+            catch (Exception ex)
+            {
+                return resolver.CreateContainer(new Uri("file://" + System.IO.Path.GetFullPath(location)), config);
+            }
         }
         public static Uri ToCloudFileUri(this string strPath)
         {

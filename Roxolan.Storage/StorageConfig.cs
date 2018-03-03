@@ -11,6 +11,7 @@ namespace Roxolan.Storage
 {
     public class StorageConfig: IStorageConfig
     {
+        static IConfiguration _initial = null;
         IConfiguration _cfg;
         static CloudStorageAccount[] _cfgCloudStorageAccounts = null;
 
@@ -26,6 +27,7 @@ namespace Roxolan.Storage
                             //.AddAzureKeyVault()
                             .AddEnvironmentVariables()
                             .Build();
+            _initial = cfg;
             _cfgCloudStorageAccounts = FindStorageConnections(cfg.AsEnumerable().Select(x => x.Value));
         }
 
@@ -42,7 +44,7 @@ namespace Roxolan.Storage
         }
         public StorageConfig(IConfiguration configuration)
         {
-            _cfg = configuration;
+            _cfg = configuration ?? _initial;
             _cfgCloudStorageAccounts = FindStorageConnections(_cfg.AsEnumerable().Select(x => x.Value));
             foreach (var a in _cfgCloudStorageAccounts)
             {
