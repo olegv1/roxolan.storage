@@ -3,3 +3,6 @@
 ################################################################################
 
 /Roxolan.Storage.Tests/bin/x64/Debug/netcoreapp2.0
+/Roxolan.Storage/bin/X86/Debug
+/Roxolan.Storage/obj
+/Roxolan.Storage.Tests/obj
