@@ -42,14 +42,14 @@ namespace Roxolan.Storage.Tests
         [Fact]
         public void TestBlobToCloudFileLocation()
         {
-            Uri uri = new Uri( $"https://4wkg2mcjiyss43.blob.core.windows.net/tmp/x.zip" );
+            Uri srcuri = new Uri( $"https://4wkg2mcjiyss43.blob.core.windows.net/tmp/x.zip" );
             Uri dest = new Uri( $"https://4wkg2mcjiyss43.file.core.windows.net/temp/x.zip" );
             var cfg = new ConfigurationBuilder()
                                 .AddJsonFile("appsettings.json", true)
                                 .AddXmlFile("appsettings.xml", true)
                                 .Build();
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(cfg["x:y:a:x"]);
-            IStorageItem f = uri.CreateItem();
+            IStorageItem f = srcuri.CreateItem();
             var destItem = dest.CreateItem(new StorageConfig(cfg));
             destItem.Parent.CreateIfNotExists();
             f.CopyToLocation(dest.AbsoluteUri, true);
@@ -57,13 +57,13 @@ namespace Roxolan.Storage.Tests
             byte[] srcbytes = null;
             using (MemoryStream ms = new MemoryStream())
             {
-                (new CloudBlob(uri, storageAccount.Credentials)).DownloadToStreamAsync(ms).GetAwaiter().GetResult();
+                (new CloudBlob(srcuri, storageAccount.Credentials)).DownloadToStreamAsync(ms).GetAwaiter().GetResult();
                 srcbytes = ms.ToArray();
             } 
             byte[] destbytes = null;
             using (MemoryStream ms = new MemoryStream())
             {
-                (new CloudFile(uri, storageAccount.Credentials)).DownloadToStreamAsync(ms).GetAwaiter().GetResult();
+                (new CloudFile(srcuri, storageAccount.Credentials)).DownloadToStreamAsync(ms).GetAwaiter().GetResult();
                 destbytes = ms.ToArray();
             } 
             Assert.Equal(Convert.ToBase64String(srcbytes), Convert.ToBase64String(destbytes));
