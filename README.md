@@ -63,7 +63,7 @@ azure blob to azure file example:
 
 ## Running the tests
 
-The tests in this project use the **xUnit** testing framework and interact directly with one or more Azure KeyVaults (they are not encapsulated in this project).
+The tests in this project use the **xUnit** testing framework.
 
 
 ## To Do:
