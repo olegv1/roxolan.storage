@@ -114,12 +114,12 @@ namespace Roxolan.Storage
         public static IStorageContainer CreateContainer(this Uri uri, IUriResolver resolver = null, IStorageConfig storageConfig = null)
         {
             var r = resolver ?? new BaseUriResolver();
-            return resolver.CreateContainer(uri, storageConfig);
+            return r.CreateContainer(uri, storageConfig);
         }
         public static IStorageContainer CreateContainer(this Uri uri, IConfiguration config, IUriResolver resolver = null)
         {
             var r = resolver ?? new BaseUriResolver();
-            return resolver.CreateContainer(uri, config);
+            return r.CreateContainer(uri, config);
         }
 
         private static IStorageContainer CreateFileItemDirectory(Uri uri)
@@ -158,11 +158,11 @@ namespace Roxolan.Storage
             var r = resolver ?? new BaseUriResolver();
             try
             {
-                return resolver.CreateContainer(new Uri(location), storageConfig);
+                return r.CreateContainer(new Uri(location), storageConfig);
             }
             catch (Exception ex)
             {
-                return resolver.CreateContainer(new Uri("file://" + System.IO.Path.GetFullPath(location)), storageConfig);
+                return r.CreateContainer(new Uri("file://" + System.IO.Path.GetFullPath(location)), storageConfig);
             }
         }
         public static IStorageContainer CreateContainer(this string location, IConfiguration config, IUriResolver resolver = null)
@@ -170,11 +170,11 @@ namespace Roxolan.Storage
             var r = resolver ?? new BaseUriResolver();
             try
             {
-                return resolver.CreateContainer(new Uri(location), config);
+                return r.CreateContainer(new Uri(location), config);
             }
             catch (Exception ex)
             {
-                return resolver.CreateContainer(new Uri("file://" + System.IO.Path.GetFullPath(location)), config);
+                return r.CreateContainer(new Uri("file://" + System.IO.Path.GetFullPath(location)), config);
             }
         }
         public static Uri ToCloudFileUri(this string strPath)
